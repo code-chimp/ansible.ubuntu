@@ -1,0 +1,22 @@
+- name: install node
+  become: true
+  apt:
+    name: ['nodejs', 'npm']
+  tags:
+    - install
+    - node
+
+- name: install node version manager
+  become_user: tgoshinski
+  npm:
+    name: n
+    global: true
+  tags:
+    - install
+    - node
+
+- name: Install Node LTS
+  shell: n 16
+  tags:
+    - install
+    - node

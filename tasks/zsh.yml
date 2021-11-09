@@ -1,0 +1,78 @@
+- name: Install zsh
+  become: true
+  apt:
+    name: zsh
+    state: latest
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Change Default Shell
+  become: true
+  shell: chsh -s `which zsh` tgoshinski
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Create empty zsh config
+  become: true
+  become_user: tgoshinski
+  shell: echo '# replace me' >> ~/.zshrc
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Install ohmyzsh
+  become: true
+  become_user: tgoshinski
+  shell: >
+    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer
+    && chmod +x ~/.oh-my-installer
+    && ~/.oh-my-installer
+    && rm ~/.oh-my-installer
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Clone Dracula Theme for zsh
+  become: true
+  become_user: tgoshinski
+  ansible.builtin.git:
+    repo: 'https://github.com/dracula/zsh.git'
+    dest: "~/dracula-zsh"
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: Symlink Dracula Theme to .oh-my-zsh
+  become: true
+  become_user: tgoshinski
+  shell: ln -s ~/dracula-zsh/dracula.zsh-theme ~/.oh-my-zsh/themes/dracula.zsh-theme
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+## plugin example
+# - name: Install zsh Plugin autosuggestions
+#   become: true
+#   become_user: tgoshinski
+#   ansible.builtin.git:
+#     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+#     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+#   tags:
+#     - install
+#     - productivity
+#     - dotfiles
+#     - zsh

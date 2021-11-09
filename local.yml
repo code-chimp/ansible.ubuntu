@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars:
+    gover: "1.17.3"
+  pre_tasks:
+  - name: Update Package Manager
+    become: true
+    apt:
+      force_apt_get: true
+      update_cache: true
+      state: present
+    tags:
+      - install
+      - core
+  tasks:
+    - include: tasks/core.yml
+    - include: tasks/git.yml
+    - include: tasks/golang.yml
+    - include: tasks/zsh.yml
+    # dotfiles
+    # - include: tasks/vim.yml
+    - include: tasks/productivity.yml

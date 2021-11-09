@@ -1,0 +1,23 @@
+- name: Install System Packages 1
+  become: true
+  apt:
+    name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
+  tags:
+    - install
+    - core
+
+- name: Install System Packages 2
+  become: true
+  apt:
+    name: [ "unzip", "libtool", "libtool-bin", "gettext", "fonts-powerline", "tree" ]
+  tags:
+    - install
+    - core
+
+- name: Install System Packages 3
+  become: true
+  apt:
+    name: [ "curl", "htop", "lsof", "python3-pip", "pavucontrol", "moreutils" ]
+  tags:
+    - install
+    - core

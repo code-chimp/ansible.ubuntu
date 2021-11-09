@@ -1,0 +1,20 @@
+- name: Install Go
+  become: true
+  shell: >
+    curl -L https://golang.org/dl/go{{ gover }}.linux-amd64.tar.gz > go{{ gover }}.linux-amd64.tar.gz
+    && rm -rf /usr/local/go && tar -C /usr/local -xzf go{{ gover }}.linux-amd64.tar.gz
+    && rm go{{ gover }}.linux-amd64.tar.gz
+  tags:
+    - install
+    - golang
+
+- name: Create GOPATH
+  become: true
+  become_user: tgoshinski
+  shell: >
+    mkdir -p ~/work/go/bin
+    && mkdir ~/work/go/pkg
+    && mkdir ~/work/go/src
+  tags:
+    - install
+    - golang
