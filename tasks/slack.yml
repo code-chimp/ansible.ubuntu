@@ -23,11 +23,3 @@
     - install
     - slack
 
-- name: Update the apt cache
-  become: true
-  apt:
-    update_cache: yes
-  tags:
-    - install
-    - slack
-

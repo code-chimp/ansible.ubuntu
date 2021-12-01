@@ -1,4 +1,20 @@
-- name: shutter ppa (ppa:linuxuprising/shutter)
+- name: Download Dropbox .deb
+  get_url:
+    url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+    dest: /tmp/dropbox.deb
+  tags:
+    - install
+    - productivity
+
+- name: Install Dropbox .deb package
+  become: true
+  apt:
+    deb: /tmp/dropbox.deb
+  tags:
+    - install
+    - productivity
+
+- name: Shutter PPA (ppa:linuxuprising/shutter)
   become: true
   apt_repository:
    repo: ppa:linuxuprising/shutter
@@ -8,11 +24,52 @@
     - install
     - productivity
 
-- name: install packages
+- name: KeepassXC PPA (ppa:phoerious/keepassxc)
+  become: true
+  apt_repository:
+   repo: ppa:phoerious/keepassxc
+   state: present
+   update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: Emacs PPA (ppa:kelleyk/emacs)
+  become: true
+  apt_repository:
+   repo: ppa:kelleyk/emacs
+   state: present
+   update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: GIMP PPA (ppa:ubuntuhandbook1/gimp)
+  become: true
+  apt_repository:
+   repo: ppa:ubuntuhandbook1/gimp
+   state: present
+   update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: Inkscape PPA (ppa:inkscape.dev/stable)
+  become: true
+  apt_repository:
+   repo: ppa:inkscape.dev/stable
+   state: present
+   update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: Install Random Productivity Tools
   become: true
   apt:
+    update_cache: yes
     name: [
-      "tmux",
+      "bc",
       "wireshark",
       "fzf",
       "gimp",
@@ -20,11 +77,21 @@
       "tldr",
       "ripgrep",
       "shutter",
-      "snapd",
       "k3b",
       "k3b-data",
-      "k3b-extrathemes"
-      ]
+      "k3b-extrathemes",
+      "emacs27",
+      "emacs27-common",
+      "gimp",
+      "gimp-data",
+      "gimp-data-extras",
+      "gimp-gmic",
+      "gimp-gutenprint",
+      "inkscape",
+      "keepassxc",
+      "dropbox",
+      "skanlite"
+    ]
   tags:
     - install
     - productivity

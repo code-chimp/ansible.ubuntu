@@ -43,3 +43,17 @@
   tags:
     - install
     - fonts
+
+- name: Install Favorite Font Packages
+  become: true
+  apt:
+    update_cache: yes
+    name: [
+      "fonts-powerline",
+      "fonts-firacode",
+      "fonts-noto-color-emoji",
+      "fonts-emojione"
+    ]
+  tags:
+    - install
+    - productivity

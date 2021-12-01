@@ -14,15 +14,18 @@
     - install
     - dotnet
 
-- name: Setup Microsoft Edge Stable Repository
+- name: Setup Microsoft Edge Stable and VS Code Repositories
   become: true
   shell: >
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     && install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
     && echo "deb [arch=amd64] http://packages.microsoft.com/repos/edge/ stable main" >> /etc/apt/sources.list.d/microsoft-edge.list
+    && echo "deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list
     && rm microsoft.gpg
   tags:
     - install
+    - ide
+    - vscode
     - browser
     - edge
 
@@ -42,25 +45,26 @@
     - install
     - skype
 
-- name: Update the apt cache
-  become: true
-  apt:
-    update_cache: yes
-  tags:
-    - install
-    - dotnet
-    - skype
+# - name: Update the apt cache
+#   become: true
+#   apt:
+#   tags:
+#     - install
+#     - dotnet
+#     - skype
 
 - name: Install Microsoft Packages
   become: true
   apt:
-    name: ["dotnet-sdk-6.0", "dotnet-sdk-5.0", "dotnet-sdk-3.1", "skypeforlinux", "microsoft-edge-stable"]
+    update_cache: yes
+    name: ["dotnet-sdk-6.0", "dotnet-sdk-5.0", "dotnet-sdk-3.1", "skypeforlinux", "microsoft-edge-stable", "code"]
   tags:
     - install
     - browser
     - edge
     - dotnet
     - skype
+    - vscode
 
 - name: Install .NET tools
   shell: >

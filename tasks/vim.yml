@@ -1,6 +1,7 @@
 - name: Install vim/gvim
   become: true
   apt:
+    update_cache: yes
     name: ["vim", "vim-common", "vim-gtk3", "vim-gui-common", "vim-runtime", "vim-tiny"]
   tags:
     - install

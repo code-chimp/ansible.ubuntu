@@ -1,4 +1,4 @@
-- name: Download Jetbrans Toolbox
+- name: Download Jetbrains Toolbox
   get_url:
     url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.22.10774.tar.gz
     dest: /tmp/toolbox.tar.gz

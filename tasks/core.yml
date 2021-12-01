@@ -1,7 +1,14 @@
 - name: Install System Packages 1
   become: true
   apt:
-    name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev", "xz-utils"]
+    name: [
+      "build-essential",
+      "cmake",
+      "pkg-config",
+      "libpthread-stubs0-dev",
+      "xz-utils",
+      "apt-transport-https"
+    ]
   tags:
     - install
     - core
@@ -9,7 +16,14 @@
 - name: Install System Packages 2
   become: true
   apt:
-    name: [ "unzip", "libtool", "libtool-bin", "gettext", "fonts-powerline", "fonts-firacode", "tree" ]
+    name: [
+      "unzip",
+      "libtool",
+      "libtool-bin",
+      "gettext",
+      "tree",
+      "ca-certificates"
+    ]
   tags:
     - install
     - core
@@ -17,7 +31,19 @@
 - name: Install System Packages 3
   become: true
   apt:
-    name: [ "curl", "htop", "lsof", "python3-pip", "pavucontrol", "moreutils", "gnupg2", "zip", "lib32ncurses6", "lib32stdc++6" ]
+    name: [
+      "curl",
+      "htop",
+      "lsof",
+      "python3-pip",
+      "pavucontrol",
+      "moreutils",
+      "gnupg2",
+      "zip",
+      "lib32ncurses6",
+      "lib32stdc++6",
+      "snapd"
+    ]
   tags:
     - install
     - core

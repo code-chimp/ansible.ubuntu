@@ -32,12 +32,16 @@
     - include: tasks/rust.yml
     - include: tasks/ruby.yml
     - include: tasks/java.yml
+    - include: tasks/latex.yml
+    - include: tasks/tmux.yml
     - include: tasks/dotfiles.yml
     # chicken'n egg - cannot silent install when vimrc depends on plugins
     # - include: tasks/vim-plugins.yml
     - include: tasks/microsoft.yml
     - include: tasks/chrome.yml
     - include: tasks/firefox.yml
+    - include: tasks/brave.yml
+    - include: tasks/docker.yml
     - include: tasks/libreoffice.yml
     - include: tasks/toolbox.yml
     - include: tasks/slack.yml
