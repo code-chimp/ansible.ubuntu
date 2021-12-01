@@ -1,0 +1,45 @@
+- name: Ensure a Fonts Directory
+  file:
+    dest: "{{ lookup('env', 'HOME') }}/.fonts"
+    mode: 0755
+    state: directory
+  tags:
+    - install
+    - fonts
+
+- name: Make a Temp Font Directory
+  file:
+    dest: "{{ lookup('env', 'HOME') }}/.fonttemp"
+    mode: 0755
+    state: directory
+  tags:
+    - install
+    - fonts
+
+- name: Download Fira Code Patched
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonttemp/FiraCode.zip"
+  tags:
+    - install
+    - fonts
+
+- name: Download UbuntuMono Patched
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/UbuntuMono.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonttemp/UbuntuMono.zip"
+  tags:
+    - install
+    - fonts
+
+- name: Install Nerd Fonts
+  shell: >
+    cd $HOME/.fonttemp
+    && unzip FiraCode.zip
+    && unzip UbuntuMono.zip
+    && mv *.ttf ~/.fonts
+    && cd ..
+    && rm -rf .fonttemp
+  tags:
+    - install
+    - fonts

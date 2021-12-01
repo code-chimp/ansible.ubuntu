@@ -1,0 +1,13 @@
+- name: Install OpenJKD 11
+  become: true
+  apt:
+    name: ['openjdk-11-jdk', 'openjdk-11-jdk-headless', 'openjdk-11-jre', 'openjdk-11-jre-headless']
+  tags:
+    - install
+    - java
+
+- name: Install SDKMan
+  shell: curl -s https://git.sdkman.io | bash
+  tags:
+    - install
+    - java

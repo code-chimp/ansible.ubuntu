@@ -1,0 +1,24 @@
+- name: Neovim PPA (ppa:neovim-ppa/unstable)
+  become: true
+  apt_repository:
+    repo: ppa:neovim-ppa/unstable
+    state: present
+    update_cache: True
+  tags:
+    - install
+    - neovim
+
+- name: Install Neovim
+  become: true
+  apt:
+    name: neovim
+    state: latest
+  tags:
+    - install
+    - neovim
+
+- name: Install Vim-Plug
+  shell: curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  tags:
+    - install
+    - neovim

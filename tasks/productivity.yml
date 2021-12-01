@@ -11,7 +11,20 @@
 - name: install packages
   become: true
   apt:
-    name: [ "tmux", "wireshark", "fzf", "gimp", "xclip", "tldr", "ripgrep", "shutter" ]
+    name: [
+      "tmux",
+      "wireshark",
+      "fzf",
+      "gimp",
+      "xclip",
+      "tldr",
+      "ripgrep",
+      "shutter",
+      "snapd",
+      "k3b",
+      "k3b-data",
+      "k3b-extrathemes"
+      ]
   tags:
     - install
     - productivity

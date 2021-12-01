@@ -1,0 +1,8 @@
+- name: Copy Post Install Instructions
+  copy:
+    src: "./static/POST_INSTALL.md"
+    dest: "{{ lookup('env', 'HOME') }}"
+    mode: 0666
+  tags:
+    - install
+    - post

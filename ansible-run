@@ -6,4 +6,4 @@ sudo apt-get update -y
 sudo apt-get install -y curl git software-properties-common ansible
 
 ## pull ansible
-sudo ansible-pull -U https://github.com/code-chimp/ansible.git
+ansible-pull --ask-vault-pass --ask-become-pass -U https://github.com/code-chimp/ansible.ubuntu.git

@@ -1,0 +1,71 @@
+- name: Download .NET .deb
+  get_url:
+    url: https://packages.microsoft.com/config/ubuntu/{{ buntuver }}/packages-microsoft-prod.deb
+    dest: /tmp/microsoft.deb
+  tags:
+    - install
+    - dotnet
+
+- name: Install Microsoft .deb package
+  become: true
+  apt:
+    deb: /tmp/microsoft.deb
+  tags:
+    - install
+    - dotnet
+
+- name: Setup Microsoft Edge Stable Repository
+  become: true
+  shell: >
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    && install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+    && echo "deb [arch=amd64] http://packages.microsoft.com/repos/edge/ stable main" >> /etc/apt/sources.list.d/microsoft-edge.list
+    && rm microsoft.gpg
+  tags:
+    - install
+    - browser
+    - edge
+
+- name: Download Skype for Linux .deb
+  get_url:
+    url: https://go.skype.com/skypeforlinux-64.deb
+    dest: /tmp/skype.deb
+  tags:
+    - install
+    - skype
+
+- name: Install Skype for Linux .deb package
+  become: true
+  apt:
+    deb: /tmp/skype.deb
+  tags:
+    - install
+    - skype
+
+- name: Update the apt cache
+  become: true
+  apt:
+    update_cache: yes
+  tags:
+    - install
+    - dotnet
+    - skype
+
+- name: Install Microsoft Packages
+  become: true
+  apt:
+    name: ["dotnet-sdk-6.0", "dotnet-sdk-5.0", "dotnet-sdk-3.1", "skypeforlinux", "microsoft-edge-stable"]
+  tags:
+    - install
+    - browser
+    - edge
+    - dotnet
+    - skype
+
+- name: Install .NET tools
+  shell: >
+    dotnet tool install -g dotnet-ef
+    && dotnet tool install -g dotnet-aspnet-codegenerator
+  tags:
+    - install
+    - dotnet

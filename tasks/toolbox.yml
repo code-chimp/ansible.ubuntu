@@ -1,0 +1,17 @@
+- name: Download Jetbrans Toolbox
+  get_url:
+    url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.22.10774.tar.gz
+    dest: /tmp/toolbox.tar.gz
+  tags:
+    - install
+    - jetbrains
+
+# Cannot test install headless leaving that as a post-install task
+- name: Unpack Toolbox for Post Install
+  shell: >
+    cd ~
+    && tar xzf /tmp/toolbox.tar.gz
+    && mv jetbrains-toolbox-1.22.10774 jetbrains-toolbox
+  tags:
+    - install
+    - jetbrains

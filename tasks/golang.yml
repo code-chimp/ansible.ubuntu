@@ -9,8 +9,6 @@
     - golang
 
 - name: Create GOPATH
-  become: true
-  become_user: tgoshinski
   shell: >
     mkdir -p ~/work/go/bin
     && mkdir ~/work/go/pkg

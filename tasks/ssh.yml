@@ -1,0 +1,69 @@
+- name: Ensure bitbucket .ssh directory exists.
+  file:
+    dest: "{{ bb_dest_key | dirname }}"
+    mode: 0700
+    state: directory
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install config file
+  copy:
+    src: "{{ source_key }}"
+    dest: "{{ dest_key }}"
+    mode: 0644
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install bitbucket ssh key
+  copy:
+    src: "{{ bb_source_key }}"
+    dest: "{{ bb_dest_key }}"
+    mode: 0600
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install bitbucket ssh key public
+  copy:
+    src: "{{ bb_source_key }}.pub"
+    dest: "{{ bb_dest_key }}.pub"
+    mode: 0644
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Ensure github .ssh directory exists.
+  file:
+    dest: "{{ gh_dest_key | dirname }}"
+    mode: 0700
+    state: directory
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install github ssh key
+  copy:
+    src: "{{ gh_source_key }}"
+    dest: "{{ gh_dest_key }}"
+    mode: 0600
+  tags:
+    - dotfiles
+    - install
+    - ssh
+
+- name: Install github ssh key public
+  copy:
+    src: "{{ gh_source_key }}.pub"
+    dest: "{{ gh_dest_key }}.pub"
+    mode: 0644
+  tags:
+    - dotfiles
+    - install
+    - ssh

@@ -1,4 +1,4 @@
-- name: install node
+- name: Install node
   become: true
   apt:
     name: ['nodejs', 'npm']
@@ -6,17 +6,25 @@
     - install
     - node
 
-- name: install node version manager
-  become_user: tgoshinski
-  npm:
-    name: n
-    global: true
+- name: Ensure physical dir for nvm
+  file:
+    dest: "{{ lookup('env', 'HOME') }}/.nvm"
+    mode: 0755
+    state: directory
   tags:
     - install
     - node
 
-- name: Install Node LTS
-  shell: n 16
+- name: Install node version manager
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+  tags:
+    - install
+    - node
+
+- name: Install Deno
+  shell: >
+    curl -fsSL https://deno.land/x/install/install.sh | sh
   tags:
     - install
     - node

@@ -1,6 +1,14 @@
 - hosts: localhost
   vars:
+    buntuver: "20.04"
     gover: "1.17.3"
+    slackver: "4.19.2"
+    source_key: "./.ssh/config"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/config"
+    bb_source_key: "./.ssh/bitbucket/id_rsa"
+    bb_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/bitbucket/id_rsa"
+    gh_source_key: "./.ssh/github/id_rsa"
+    gh_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/github/id_rsa"
   pre_tasks:
   - name: Update Package Manager
     become: true
@@ -12,10 +20,26 @@
       - install
       - core
   tasks:
+    - include: tasks/ssh.yml
     - include: tasks/core.yml
-    - include: tasks/git.yml
+    - include: tasks/fonts.yml
     - include: tasks/golang.yml
     - include: tasks/zsh.yml
-    # dotfiles
-    # - include: tasks/vim.yml
+    - include: tasks/vim.yml
+    - include: tasks/nvim.yml
+    - include: tasks/node.yml
+    - include: tasks/flutter.yml
+    - include: tasks/rust.yml
+    - include: tasks/ruby.yml
+    - include: tasks/java.yml
+    - include: tasks/dotfiles.yml
+    # chicken'n egg - cannot silent install when vimrc depends on plugins
+    # - include: tasks/vim-plugins.yml
+    - include: tasks/microsoft.yml
+    - include: tasks/chrome.yml
+    - include: tasks/firefox.yml
+    - include: tasks/libreoffice.yml
+    - include: tasks/toolbox.yml
+    - include: tasks/slack.yml
     - include: tasks/productivity.yml
+    - include: tasks/statics.yml

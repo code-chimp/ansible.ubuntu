@@ -1,0 +1,18 @@
+- name: LibreOffice PPA (ppa:libreoffice/ppa)
+  become: true
+  apt_repository:
+    repo: ppa:libreoffice/ppa
+    state: present
+    update_cache: True
+  tags:
+    - install
+    - libreoffice
+
+- name: Install LibreOffice
+  become: true
+  apt:
+    name: libreoffice
+    state: latest
+  tags:
+    - install
+    - libreoffice

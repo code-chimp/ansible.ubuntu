@@ -1,0 +1,13 @@
+- name: Install vim Plugins
+  shell: vim -s +PlugInstall +qall
+  tags:
+    - install
+    - dotfiles
+    - vim
+
+- name: Install Neovim Plugins
+  shell: nvim +PlugInstall +qall
+  tags:
+    - install
+    - dotfiles
+    - neovim

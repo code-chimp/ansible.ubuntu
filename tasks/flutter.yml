@@ -1,0 +1,16 @@
+- name: Install Flutter Dependencies
+  become: true
+  apt:
+    name: libglu1-mesa
+    state: latest
+  tags:
+    - install
+    - flutter
+
+- name: Clone Flutter
+  ansible.builtin.git:
+    repo: 'https://github.com/flutter/flutter.git'
+    dest: "~/flutter"
+  tags:
+    - install
+    - flutter
