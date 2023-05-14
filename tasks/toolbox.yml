@@ -1,6 +1,6 @@
 - name: Download Jetbrains Toolbox
   get_url:
-    url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.22.10774.tar.gz
+    url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-{{ toolboxver }}.tar.gz
     dest: /tmp/toolbox.tar.gz
   tags:
     - install
@@ -11,7 +11,7 @@
   shell: >
     cd ~
     && tar xzf /tmp/toolbox.tar.gz
-    && mv jetbrains-toolbox-1.22.10774 jetbrains-toolbox
+    && mv jetbrains-toolbox-* jetbrains-toolbox
   tags:
     - install
     - jetbrains

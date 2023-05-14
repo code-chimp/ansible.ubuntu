@@ -1,8 +1,11 @@
 - hosts: localhost
   vars:
-    buntuver: "20.04"
-    gover: "1.17.3"
-    slackver: "4.19.2"
+    primaryuser: "tgoshinski"
+    buntuver: "22.04"
+    dockerver: "4.19.0"
+    gover: "1.20.4"
+    slackver: "4.32.122"
+    toolboxver: "1.28.1.15219"
     source_key: "./.ssh/config"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/config"
     bb_source_key: "./.ssh/bitbucket/id_rsa"
@@ -20,30 +23,32 @@
       - install
       - core
   tasks:
-    - include: tasks/ssh.yml
-    - include: tasks/core.yml
-    - include: tasks/fonts.yml
-    - include: tasks/golang.yml
-    - include: tasks/zsh.yml
-    - include: tasks/vim.yml
-    - include: tasks/nvim.yml
-    - include: tasks/node.yml
-    - include: tasks/flutter.yml
-    - include: tasks/rust.yml
-    - include: tasks/ruby.yml
-    - include: tasks/java.yml
-    - include: tasks/latex.yml
-    - include: tasks/tmux.yml
-    - include: tasks/dotfiles.yml
+    - import_tasks: tasks/ssh.yml
+    - import_tasks: tasks/core.yml
+    - import_tasks: tasks/fonts.yml
+    - import_tasks: tasks/golang.yml
+    - import_tasks: tasks/zsh.yml
+    - import_tasks: tasks/vim.yml
+    - import_tasks: tasks/nvim.yml
+    - import_tasks: tasks/node.yml
+    - import_tasks: tasks/flutter.yml
+    - import_tasks: tasks/rust.yml
+    - import_tasks: tasks/ruby.yml
+    - import_tasks: tasks/java.yml
+    - import_tasks: tasks/tmux.yml
+    - import_tasks: tasks/dotfiles.yml
     # chicken'n egg - cannot silent install when vimrc depends on plugins
-    # - include: tasks/vim-plugins.yml
-    - include: tasks/microsoft.yml
-    - include: tasks/chrome.yml
-    - include: tasks/firefox.yml
-    - include: tasks/brave.yml
-    - include: tasks/docker.yml
-    - include: tasks/libreoffice.yml
-    - include: tasks/toolbox.yml
-    - include: tasks/slack.yml
-    - include: tasks/productivity.yml
-    - include: tasks/statics.yml
+    # - import_tasks: tasks/vim-plugins.yml
+    - import_tasks: tasks/microsoft.yml
+    - import_tasks: tasks/chrome.yml
+    - import_tasks: tasks/firefox.yml
+    # how much do I ever use or need to debug against this really?
+    # - import_tasks: tasks/brave.yml
+    - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/libreoffice.yml
+    - import_tasks: tasks/toolbox.yml
+    - import_tasks: tasks/slack.yml
+    - import_tasks: tasks/productivity.yml
+    - import_tasks: tasks/statics.yml
+    # TexLive is enormous - moving this to the end to be abortable
+    - import_tasks: tasks/latex.yml

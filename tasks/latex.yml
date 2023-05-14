@@ -1,9 +1,29 @@
+- name: TeXstudio PPA (ppa:sunderme/texstudio)
+  become: true
+  apt_repository:
+   repo: ppa:sunderme/texstudio
+   state: present
+   update_cache: True
+  tags:
+    - install
+    - latex
+
+- name: Install TeXstudio
+  become: true
+  apt:
+    update_cache: yes
+    name: [
+      "texstudio"
+    ]
+  tags:
+    - install
+    - latex
+
 - name: Install LaTeX Dependencies
   become: true
   apt:
     update_cache: yes
     name: [
-      "texlive-full",
       "asymptote",
       "asymptote-doc",
       "ghostscript",
@@ -18,18 +38,14 @@
     - install
     - latex
 
-- name: Download TeXstudio .deb
-  get_url:
-    url: http://downloadcontent.opensuse.org/repositories/home:/jsundermeyer/xUbuntu_20.04/amd64/texstudio_4.1.1-1+1.1_amd64.deb
-    dest: /tmp/texstudio.deb
+- name: Install Giant TexLive metapackage
+  become: true
+  apt:
+    update_cache: yes
+    name: [
+      "texlive-full"
+    ]
   tags:
     - install
     - latex
 
-- name: Install TeXstudio .deb package
-  become: true
-  apt:
-    deb: /tmp/texstudio.deb
-  tags:
-    - install
-    - latex

@@ -14,16 +14,6 @@
     - install
     - productivity
 
-- name: Shutter PPA (ppa:linuxuprising/shutter)
-  become: true
-  apt_repository:
-   repo: ppa:linuxuprising/shutter
-   state: present
-   update_cache: True
-  tags:
-    - install
-    - productivity
-
 - name: KeepassXC PPA (ppa:phoerious/keepassxc)
   become: true
   apt_repository:
@@ -72,7 +62,6 @@
       "bc",
       "wireshark",
       "fzf",
-      "gimp",
       "xclip",
       "tldr",
       "ripgrep",
@@ -80,8 +69,8 @@
       "k3b",
       "k3b-data",
       "k3b-extrathemes",
-      "emacs27",
-      "emacs27-common",
+      "emacs28",
+      "emacs28-common",
       "gimp",
       "gimp-data",
       "gimp-data-extras",

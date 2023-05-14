@@ -6,7 +6,7 @@
     - install
     - dotnet
 
-- name: Install Microsoft .deb package
+- name: Install .NET .deb package
   become: true
   apt:
     deb: /tmp/microsoft.deb
@@ -14,57 +14,33 @@
     - install
     - dotnet
 
-- name: Setup Microsoft Edge Stable and VS Code Repositories
-  become: true
-  shell: >
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    && install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-    && echo "deb [arch=amd64] http://packages.microsoft.com/repos/edge/ stable main" >> /etc/apt/sources.list.d/microsoft-edge.list
-    && echo "deb [arch=amd64,arm64,armhf] http://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list
-    && rm microsoft.gpg
+- name: Download Visual Studio Code .deb
+  get_url:
+    url: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+    dest: /tmp/code.deb
   tags:
     - install
     - ide
     - vscode
-    - browser
-    - edge
 
-- name: Download Skype for Linux .deb
-  get_url:
-    url: https://go.skype.com/skypeforlinux-64.deb
-    dest: /tmp/skype.deb
-  tags:
-    - install
-    - skype
-
-- name: Install Skype for Linux .deb package
+- name: Install Visual Studio Code .deb package
   become: true
   apt:
-    deb: /tmp/skype.deb
+    deb: /tmp/code.deb
   tags:
     - install
-    - skype
-
-# - name: Update the apt cache
-#   become: true
-#   apt:
-#   tags:
-#     - install
-#     - dotnet
-#     - skype
+    - ide
+    - vscode
 
 - name: Install Microsoft Packages
   become: true
   apt:
     update_cache: yes
-    name: ["dotnet-sdk-6.0", "dotnet-sdk-5.0", "dotnet-sdk-3.1", "skypeforlinux", "microsoft-edge-stable", "code"]
+    name: ["dotnet-sdk-7.0", "dotnet-sdk-6.0"]
   tags:
     - install
     - browser
-    - edge
     - dotnet
-    - skype
-    - vscode
 
 - name: Install .NET tools
   shell: >

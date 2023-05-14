@@ -42,7 +42,8 @@
       "zip",
       "lib32ncurses6",
       "lib32stdc++6",
-      "snapd"
+      "snapd",
+      "wget"
     ]
   tags:
     - install

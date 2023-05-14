@@ -1,7 +1,7 @@
-- name: Firefox Developer PPA (ppa:ubuntu-mozilla-daily/firefox-aurora)
+- name: Firefox PPA (ppa:mozillateam/ppa)
   become: true
   apt_repository:
-    repo: ppa:ubuntu-mozilla-daily/firefox-aurora
+    repo: ppa:mozillateam/ppa
     state: present
     update_cache: True
   tags:
@@ -9,7 +9,7 @@
     - browser
     - firefox
 
-- name: Install Firefox Developer Edition
+- name: Install Firefox
   become: true
   apt:
     name: firefox

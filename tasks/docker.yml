@@ -1,25 +1,32 @@
-- name: Setup Docker Community Edition Repository
+- name: Docker Desktop Pre-req(s)
   become: true
-  shell: >
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    && apt-cache policy docker-ce
+  apt:
+    name: [
+      "gnome-terminal"
+    ]
   tags:
     - install
     - docker
 
-- name: Install Dcoker Community Edition
-  become: true
-  apt:
-    update_cache: yes
-    name: docker-ce
+- name: Download Docker Desktop .deb
+  get_url:
+    url: https://desktop.docker.com/linux/main/amd64/docker-desktop-{{ dockerver }}-amd64.deb
+    dest: /tmp/docker-desktop.deb
   tags:
     - install
-    - docker-ce
+    - docker
+
+- name: Install Docker Desktop .deb package
+  become: true
+  apt:
+    deb: /tmp/docker-desktop.deb
+  tags:
+    - install
+    - docker
 
 - name: Add Primary User to Docker Group
   become: true
-  shell: usermod -aG docker tgoshinski
+  shell: usermod -aG docker {{ primaryuser }}
   tags:
     - install
     - docker

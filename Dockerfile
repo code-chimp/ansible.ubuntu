@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 WORKDIR /usr/local/bin
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -16,5 +16,5 @@ RUN groupadd -g 1001 tgoshinski \
 COPY . .
 
 USER tgoshinski
-CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]
+# CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]
 
