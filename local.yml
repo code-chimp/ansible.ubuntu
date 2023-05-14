@@ -2,6 +2,7 @@
   vars:
     primaryuser: "tgoshinski"
     buntuver: "22.04"
+    buntuname: "jammy"
     dockerver: "4.19.0"
     gover: "1.20.4"
     slackver: "4.32.122"

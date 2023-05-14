@@ -33,6 +33,7 @@
   apt:
     name: [
       "curl",
+      "gnupg",
       "htop",
       "lsof",
       "python3-pip",

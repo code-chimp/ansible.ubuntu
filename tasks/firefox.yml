@@ -9,9 +9,20 @@
     - browser
     - firefox
 
+- name: Firefox Fix Keyring
+  become: true
+  shell: >
+    apt-key export CE49EC21 | gpg --dearmor -o /etc/apt/trusted.gpg.d/mozilla.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del CE49EC21
+  tags:
+    - install
+    - browser
+    - firefox
+
 - name: Install Firefox
   become: true
   apt:
+    update_cache: true
     name: firefox
     state: latest
   tags:

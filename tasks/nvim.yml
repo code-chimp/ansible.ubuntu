@@ -8,9 +8,19 @@
     - install
     - neovim
 
+- name: Neovim Fix Keyring
+  become: true
+  shell: >
+    apt-key export 8231B6DD | gpg --dearmor -o /etc/apt/trusted.gpg.d/nvim.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 8231B6DD
+  tags:
+    - install
+    - neovim
+
 - name: Install Neovim
   become: true
   apt:
+    update_cache: true
     name: neovim
     state: latest
   tags:

@@ -8,6 +8,15 @@
     - install
     - latex
 
+- name: TeXStudio Fix Keyring
+  become: true
+  shell: >
+    apt-key export 7C387DD3 | gpg --dearmor -o /etc/apt/trusted.gpg.d/texstudio.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 7C387DD3
+  tags:
+    - install
+    - productivity
+
 - name: Install TeXstudio
   become: true
   apt:

@@ -14,12 +14,30 @@
     - install
     - productivity
 
+- name: Dropbox Fix Keyring
+  become: true
+  shell: >
+    apt-key export 5044912E | gpg --dearmor -o /etc/apt/trusted.gpg.d/dropbox.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 5044912E
+  tags:
+    - install
+    - productivity
+
 - name: KeepassXC PPA (ppa:phoerious/keepassxc)
   become: true
   apt_repository:
    repo: ppa:phoerious/keepassxc
    state: present
    update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: KeepassXC Fix Keyring
+  become: true
+  shell: >
+    apt-key export 0068FCD6 | gpg --dearmor -o /etc/apt/trusted.gpg.d/keepassxc.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 0068FCD6
   tags:
     - install
     - productivity
@@ -34,6 +52,15 @@
     - install
     - productivity
 
+- name: Emacs Fix Keyring
+  become: true
+  shell: >
+    apt-key export EAAFC9CD | gpg --dearmor -o /etc/apt/trusted.gpg.d/emacs.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del EAAFC9CD
+  tags:
+    - install
+    - productivity
+
 - name: GIMP PPA (ppa:ubuntuhandbook1/gimp)
   become: true
   apt_repository:
@@ -44,12 +71,30 @@
     - install
     - productivity
 
+- name: Gimp Fix Keyring
+  become: true
+  shell: >
+    apt-key export 852541CB | gpg --dearmor -o /etc/apt/trusted.gpg.d/gimp.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 852541CB
+  tags:
+    - install
+    - productivity
+
 - name: Inkscape PPA (ppa:inkscape.dev/stable)
   become: true
   apt_repository:
    repo: ppa:inkscape.dev/stable
    state: present
    update_cache: True
+  tags:
+    - install
+    - productivity
+
+- name: Inkscape Fix Keyring
+  become: true
+  shell: >
+    apt-key export B9A06DE3 | gpg --dearmor -o /etc/apt/trusted.gpg.d/inkscape.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del B9A06DE3
   tags:
     - install
     - productivity
