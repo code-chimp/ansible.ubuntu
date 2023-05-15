@@ -36,7 +36,7 @@
   become: true
   apt:
     update_cache: yes
-    name: ["dotnet-sdk-7.0", "dotnet-sdk-6.0"]
+    name: ["dotnet-sdk-7.0", "dotnet-sdk-6.0", "powershell"]
   tags:
     - install
     - browser

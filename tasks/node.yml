@@ -22,6 +22,15 @@
     - install
     - node
 
+- name: Copy NVM default-packages
+  copy:
+    src: "./static/default-packages"
+    dest: "{{ lookup('env', 'HOME') }}/.nvm/default-packages"
+    mode: 0666
+  tags:
+    - install
+    - node
+
 - name: Install Deno
   shell: >
     curl -fsSL https://deno.land/x/install/install.sh | sh

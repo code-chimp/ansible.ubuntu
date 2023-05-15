@@ -1,0 +1,10 @@
+@angular/cli
+@mermaid-js/mermaid-cli
+@nestjs/cli
+expo-cli
+firebase-tools
+npm-check-updates
+prettier
+serverless
+typescript
+yarn
