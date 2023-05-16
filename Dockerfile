@@ -16,5 +16,5 @@ RUN groupadd -g 1001 tgoshinski \
 COPY . .
 
 USER tgoshinski
-# CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]
+# CMD ["sh", "-c", "ansible-playbook $TAGS default.yml"]
 

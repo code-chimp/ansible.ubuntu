@@ -6,4 +6,4 @@ sudo apt-get update -y
 sudo apt-get install -y curl git software-properties-common ansible
 
 ## pull ansible
-ansible-pull -K --vault-pass-file DELETE_ME -U https://github.com/code-chimp/ansible.ubuntu.git
+ansible-playbook --ask-become-pass --ask-vault-pass default.yml

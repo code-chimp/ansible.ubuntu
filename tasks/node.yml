@@ -6,6 +6,16 @@
     - install
     - node
 
+- name: Reconfigure locales for NPM
+  become: true
+  shell: >
+    update-locale "en_US.UTF-8"
+    && locale-gen --purge "en_US.UTF-8"
+    && dpkg-reconfigure --frontend noninteractive locales
+  tags:
+    - install
+    - node
+
 - name: Ensure physical dir for nvm
   file:
     dest: "{{ lookup('env', 'HOME') }}/.nvm"
