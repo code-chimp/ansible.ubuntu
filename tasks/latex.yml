@@ -1,26 +1,14 @@
-- name: TeXstudio PPA (ppa:sunderme/texstudio)
+- name: latex | TeXstudio PPA (ppa:sunderme/texstudio)
   become: true
-  apt_repository:
-   repo: ppa:sunderme/texstudio
-   state: present
-   update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:sunderme/texstudio
   tags:
     - install
     - latex
 
-- name: TeXStudio Fix Keyring
+- name: latex | Install TeXstudio
   become: true
-  shell: >
-    apt-key export 7C387DD3 | gpg --dearmor -o /etc/apt/trusted.gpg.d/texstudio.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 7C387DD3
-  tags:
-    - install
-    - productivity
-
-- name: Install TeXstudio
-  become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: [
       "texstudio"
     ]
@@ -28,10 +16,10 @@
     - install
     - latex
 
-- name: Install LaTeX Dependencies
+- name: latex | Install LaTeX Dependencies
   become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: [
       "asymptote",
       "asymptote-doc",
@@ -47,14 +35,13 @@
     - install
     - latex
 
-- name: Install Giant TexLive metapackage
+- name: latex | Install Giant TexLive metapackage
   become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: [
       "texlive-full"
     ]
   tags:
     - install
     - latex
-

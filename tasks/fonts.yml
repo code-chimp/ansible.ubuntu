@@ -1,53 +1,53 @@
-- name: Ensure a Fonts Directory
-  file:
+- name: fonts | Ensure a Fonts Directory
+  ansible.builtin.file:
     dest: "{{ lookup('env', 'HOME') }}/.fonts"
-    mode: 0755
+    mode: "0755"
     state: directory
   tags:
     - install
     - fonts
 
-- name: Make a Temp Font Directory
-  file:
+- name: fonts | Make a Temp Font Directory
+  ansible.builtin.file:
     dest: "{{ lookup('env', 'HOME') }}/.fonttemp"
-    mode: 0755
+    mode: "0755"
     state: directory
   tags:
     - install
     - fonts
 
-- name: Download Fira Code Patched
-  get_url:
+- name: fonts | Download Fira Code Patched
+  ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
     dest: "{{ lookup('env', 'HOME') }}/.fonttemp/FiraCode.zip"
   tags:
     - install
     - fonts
 
-- name: Download UbuntuMono Patched
-  get_url:
+- name: fonts | Download UbuntuMono Patched
+  ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/UbuntuMono.zip
     dest: "{{ lookup('env', 'HOME') }}/.fonttemp/UbuntuMono.zip"
   tags:
     - install
     - fonts
 
-- name: Install Nerd Fonts
-  shell: >
+- name: fonts | Install Nerd Fonts
+  ansible.builtin.shell: >
     cd $HOME/.fonttemp
     && unzip FiraCode.zip
     && unzip UbuntuMono.zip
-    && mv *.ttf ~/.fonts
+    && mv *.ttf $HOME/.fonts
     && cd ..
     && rm -rf .fonttemp
   tags:
     - install
     - fonts
 
-- name: Install Favorite Font Packages
+- name: fonts | Install Favorite Font Packages
   become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: [
       "fonts-powerline",
       "fonts-firacode",

@@ -1,25 +1,24 @@
-- name: Download Slack
-  get_url:
-    url: https://downloads.slack-edge.com/releases/linux/{{ slackver }}/prod/x64/slack-desktop-{{ slackver }}-amd64.deb
+- name: slack | Download Slack
+  ansible.builtin.get_url:
+    url: https://downloads.slack-edge.com/releases/linux/{{ slack_ver }}/prod/x64/slack-desktop-{{ slack_ver }}-amd64.deb
     dest: /tmp/slack.deb
   tags:
     - install
     - slack
 
-- name: Remove Any previous slacks
+- name: slack | Remove Any previous slacks
   become: true
-  apt:
+  ansible.builtin.apt:
     name: slack-desktop
     state: absent
   tags:
     - install
     - slack
 
-- name: Install Slack .deb package
+- name: slack | Install Slack .deb package
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/slack.deb
   tags:
     - install
     - slack
-

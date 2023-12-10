@@ -1,0 +1,18 @@
+- name: edge | Add Edge repository
+  become: true
+  ansible.builtin.shell: >
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/microsoft-edge.gpg
+    && chmod a+r /etc/apt/trusted.gpg.d/microsoft-edge.gpg
+    && echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" | tee /etc/apt/sources.list.d/microsoft-edge-dev.list > /dev/null
+  tags:
+    - install
+    - edge
+
+- name: edge | Install Microsoft Edge browser
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name: microsoft-edge-dev
+  tags:
+    - install
+    - edge

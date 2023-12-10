@@ -1,26 +1,24 @@
-- name: Docker Desktop Pre-req(s)
+- name: docker | Docker Desktop Pre-req(s)
   become: true
-  apt:
-    name: [
-      "gnome-terminal"
-    ]
+  ansible.builtin.apt:
+    name: "gnome-terminal"
   tags:
     - install
     - docker
 
-- name: Add Docker repository
+- name: docker | Add Docker repository
   become: true
-  shell: >
+  ansible.builtin.shell: >
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
     && chmod a+r /etc/apt/trusted.gpg.d/docker.gpg
-    && echo "deb [arch="$(dpkg --print-architecture)"] https://download.docker.com/linux/ubuntu {{ buntuname }} stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    && echo "deb [arch="$(dpkg --print-architecture)"] https://download.docker.com/linux/ubuntu {{ buntu_name }} stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
   tags:
     - install
     - docker
 
-- name: Install Docker Engine
+- name: docker | Install Docker Engine
   become: true
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: [
       "docker-ce",
@@ -33,9 +31,12 @@
     - install
     - docker
 
-- name: Add Primary User to Docker Group
+- name: docker | Add Primary User to Docker Group
   become: true
-  shell: usermod -aG docker {{ primaryuser }}
+  user:
+    name: "{{ primary_user }}"
+    append: true
+    groups: docker
   tags:
     - install
     - docker

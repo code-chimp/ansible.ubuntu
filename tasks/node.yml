@@ -1,14 +1,14 @@
-- name: Install node
+- name: node | Install node
   become: true
-  apt:
+  ansible.builtin.apt:
     name: ['nodejs', 'npm']
   tags:
     - install
     - node
 
-- name: Reconfigure locales for NPM
+- name: node | Reconfigure locales for NPM
   become: true
-  shell: >
+  ansible.builtin.shell: >
     update-locale "en_US.UTF-8"
     && locale-gen --purge "en_US.UTF-8"
     && dpkg-reconfigure --frontend noninteractive locales
@@ -16,34 +16,54 @@
     - install
     - node
 
-- name: Ensure physical dir for nvm
-  file:
-    dest: "{{ lookup('env', 'HOME') }}/.nvm"
-    mode: 0755
-    state: directory
+- name: node | Get volta
+  ansible.builtin.get_url:
+    url: https://get.volta.sh
+    dest: /tmp/volta.sh
   tags:
     - install
+    - volta
     - node
 
-- name: Install node version manager
-  shell: >
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+- name: node | Install Volta
+  ansible.builtin.script: /tmp/volta.sh
   tags:
     - install
+    - volta
     - node
 
-- name: Copy NVM default-packages
-  copy:
-    src: "./static/default-packages"
-    dest: "{{ lookup('env', 'HOME') }}/.nvm/default-packages"
-    mode: 0666
+- name: node | Enable Volta pnpm support
+  ansible.builtin.shell: >
+    echo "export VOLTA_FEATURE_PNPM=1" >> $HOME/.zshrc
   tags:
     - install
+    - volta
     - node
 
-- name: Install Deno
-  shell: >
-    curl -fsSL https://deno.land/x/install/install.sh | sh
+- name: node | Install default Node environment
+  args:
+    executable: /usr/bin/zsh
+  ansible.builtin.shell: >
+    source $HOME/.zshrc
+    && volta install node@{{ node_edge }} yarn@3 pnpm
+    && npm install -g @mermaid-js/mermaid-cli firebase-tools npm-check-updates prettier serverless typescript
+  tags:
+    - install
+    - volta
+    - node
+
+- name: node | Get Deno
+  ansible.builtin.get_url:
+    url: https://deno.land/x/install/install.sh
+    dest: /tmp/deno.sh
   tags:
     - install
     - node
+    - deno
+
+- name: node | Install Deno
+  ansible.builtin.script: /tmp/deno.sh
+  tags:
+    - install
+    - node
+    - deno

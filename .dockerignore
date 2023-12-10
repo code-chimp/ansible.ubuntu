@@ -1,0 +1,6 @@
+*
+
+!.ssh_vault/
+!static/
+!tasks/
+!playbook.yml

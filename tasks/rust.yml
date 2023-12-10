@@ -1,5 +1,5 @@
-- name: Install Rust and Cargo
-  shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+- name: rust | Install Rust and Cargo
+  ansible.builtin.shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
   tags:
     - install
     - rust

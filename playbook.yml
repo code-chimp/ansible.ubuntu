@@ -1,0 +1,113 @@
+---
+- name: Default Ubuntu
+  hosts: localhost
+  vars:
+    primary_user: "tgoshinski"
+    buntu_ver: "22.04"
+    buntu_name: "jammy"
+    dropbox_ver: "2020.03.04" # https://linux.dropboxstatic.com/packages/ubuntu/
+    go_ver: "1.21.5" # https://go.dev/dl/
+    jdk_lts: "21" # https://openjdk.org/projects/jdk/
+    node_edge: "21" # https://nodejs.org/en
+    py_crust: "10"
+    py_current: "12"
+    slack_ver: "4.32.122"
+    toolbox_ver: "2.1.1.18388"
+    source_key: "./.ssh_vault/config"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/config"
+    bb_source_key: "./.ssh_vault/bitbucket/id_rsa"
+    bb_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/bitbucket/id_rsa"
+    gh_source_key: "./.ssh_vault/github/id_rsa"
+    gh_dest_key: "{{ lookup('env', 'HOME') }}/.ssh/github/id_rsa"
+  pre_tasks:
+    - name: Update Package Manager
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+      tags:
+        - install
+        - core
+  tasks:
+    - name: Get SSH Keys
+      ansible.builtin.import_tasks: tasks/ssh.yml
+
+    - name: Install Core Packages
+      ansible.builtin.import_tasks: tasks/core.yml
+
+    - name: GitHub CLI
+      ansible.builtin.import_tasks: tasks/github-cli.yml
+
+    - name: Addtitional Fonts
+      ansible.builtin.import_tasks: tasks/fonts.yml
+
+    - name: Go
+      ansible.builtin.import_tasks: tasks/golang.yml
+
+    - name: ZSH
+      ansible.builtin.import_tasks: tasks/zsh.yml
+
+    - name: Vim and Plugins
+      ansible.builtin.import_tasks: tasks/vim.yml
+
+    - name: NeoVim and Plugins
+      ansible.builtin.import_tasks: tasks/nvim.yml
+
+    - name: Node / Volta / Deno
+      ansible.builtin.import_tasks: tasks/node.yml
+
+    - name: Flutter
+      ansible.builtin.import_tasks: tasks/flutter.yml
+
+    - name: Rust / Cargo
+      ansible.builtin.import_tasks: tasks/rust.yml
+
+    - name: Ruby
+      ansible.builtin.import_tasks: tasks/ruby.yml
+
+    - name: Java JDK
+      ansible.builtin.import_tasks: tasks/java.yml
+
+    - name: Python 3
+      ansible.builtin.import_tasks: tasks/python.yml
+
+    - name: TMUX Terminal Multiplexer
+      ansible.builtin.import_tasks: tasks/tmux.yml
+
+    - name: My Dotfiles (.vimrc, .zshrc, etc.)
+      ansible.builtin.import_tasks: tasks/dotfiles.yml
+
+    - name: .NET and such
+      ansible.builtin.import_tasks: tasks/microsoft.yml
+
+    - name: Chrome Browser
+      ansible.builtin.import_tasks: tasks/chrome.yml
+
+    - name: Edge Browser
+      ansible.builtin.import_tasks: tasks/edge.yml
+
+    - name: Firefox Browser
+      ansible.builtin.import_tasks: tasks/firefox.yml
+
+    - name: Docker
+      ansible.builtin.import_tasks: tasks/docker.yml
+
+    - name: LibreOffice Suite
+      ansible.builtin.import_tasks: tasks/libreoffice.yml
+
+    - name: JetBrains Toolbox
+      ansible.builtin.import_tasks: tasks/toolbox.yml
+
+    - name: Slack
+      ansible.builtin.import_tasks: tasks/slack.yml
+
+    - name: DropBox, Gimp, Inkscape, etc.
+      ansible.builtin.import_tasks: tasks/productivity.yml
+
+    - name: Post install script and instructions
+      ansible.builtin.import_tasks: tasks/statics.yml
+
+    - name: LaTeX packages and editor (takes a long time)
+      ## TexLive is enormous - moving this to the end to be abortable
+      ansible.builtin.import_tasks: tasks/latex.yml

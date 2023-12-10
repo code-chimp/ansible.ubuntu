@@ -4,14 +4,18 @@ A few of the things that weren't easily automated.
 
 ## Initial Housecleaning
 
+The post install installs all `vim` plugins and updates the ZSH config
+
 ```bash
-vim +PlugInstall +qall
-nvim +PlugInstall +qall
-mv ~/.zshrc.full ~/.zshrc
-rm /tmp/*.deb
-su tgoshinski
-nvm i v20
-nvm alias default stable
+v# run the post install script
+./post.sh
+
+# load zshrc changes
+su $USER
+
+# login GitHub CLI
+gh auth login
+
 cd jetbrains-toolbox
 ./jetbrains-toolbox
 ```
@@ -20,7 +24,6 @@ cd jetbrains-toolbox
 
 - Hook up to Dropbox
 - Grab your Keepass DB
-- Install [Edge browswer](https://www.microsoftedgeinsider.com/en-us/download?platform=linux-deb) manually due to unsigned repo
 - Install Android Studio via Toolbox
 - Run ```flutter doctor``` to complete Flutter setup
 - Install Another Redis Desktop Client `sudo snap install another-redis-desktop-manager`

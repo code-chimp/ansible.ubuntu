@@ -1,11 +1,13 @@
-- name: Install System Packages 1
+- name: core | Install System Packages 1
   become: true
-  apt:
+  ansible.builtin.apt:
     name: [
       "build-essential",
       "cmake",
+      "gnutls-bin",
       "pkg-config",
       "libpthread-stubs0-dev",
+      "locales",
       "xz-utils",
       "apt-transport-https"
     ]
@@ -13,9 +15,9 @@
     - install
     - core
 
-- name: Install System Packages 2
+- name: core | Install System Packages 2
   become: true
-  apt:
+  ansible.builtin.apt:
     name: [
       "unzip",
       "libtool",
@@ -28,9 +30,9 @@
     - install
     - core
 
-- name: Install System Packages 3
+- name: core | Install System Packages 3
   become: true
-  apt:
+  ansible.builtin.apt:
     name: [
       "curl",
       "gnupg",
@@ -43,8 +45,18 @@
       "zip",
       "lib32ncurses6",
       "lib32stdc++6",
+      "libdb-dev",
+      "libgdbm-dev",
+      "libffi-dev",
+      "libgmp-dev",
+      "libncurses5-dev",
+      "libreadline6-dev",
+      "libssl-dev",
+      "libyaml-dev",
       "snapd",
-      "wget"
+      "uuid-dev",
+      "wget",
+      "wslu"
     ]
   tags:
     - install

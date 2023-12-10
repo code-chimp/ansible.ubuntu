@@ -1,27 +1,14 @@
-- name: Firefox PPA (ppa:mozillateam/ppa)
+- name: firefox | Firefox PPA (ppa:mozillateam/ppa)
   become: true
-  apt_repository:
-    repo: ppa:mozillateam/ppa
-    state: present
-    update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:mozillateam/ppa
   tags:
     - install
     - browser
     - firefox
 
-- name: Firefox Fix Keyring
+- name: firefox | Install Firefox
   become: true
-  shell: >
-    apt-key export CE49EC21 | gpg --dearmor -o /etc/apt/trusted.gpg.d/mozilla.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del CE49EC21
-  tags:
-    - install
-    - browser
-    - firefox
-
-- name: Install Firefox
-  become: true
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: firefox
     state: latest

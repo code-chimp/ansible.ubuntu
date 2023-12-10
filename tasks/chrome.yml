@@ -1,5 +1,5 @@
-- name: Download Google Chrome .deb package
-  get_url:
+- name: chrome | Download Google Chrome .deb package
+  ansible.builtin.get_url:
     url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     dest: /tmp/google-chrome-stable_current_amd64.deb
   tags:
@@ -7,9 +7,9 @@
     - browser
     - chrome
 
-- name: Install Google Chrome .deb package
+- name: chrome | Install Google Chrome .deb package
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/google-chrome-stable_current_amd64.deb
   tags:
     - install

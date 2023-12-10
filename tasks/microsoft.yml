@@ -1,21 +1,21 @@
-- name: Download .NET .deb
-  get_url:
-    url: https://packages.microsoft.com/config/ubuntu/{{ buntuver }}/packages-microsoft-prod.deb
+- name: microsoft | Download .NET .deb
+  ansible.builtin.get_url:
+    url: https://packages.microsoft.com/config/ubuntu/{{ buntu_ver }}/packages-microsoft-prod.deb
     dest: /tmp/microsoft.deb
   tags:
     - install
     - dotnet
 
-- name: Install .NET .deb package
+- name: microsoft | Install .NET .deb package
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/microsoft.deb
   tags:
     - install
     - dotnet
 
-- name: Download Visual Studio Code .deb
-  get_url:
+- name: microsoft | Download Visual Studio Code .deb
+  ansible.builtin.get_url:
     url: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
     dest: /tmp/code.deb
   tags:
@@ -23,27 +23,27 @@
     - ide
     - vscode
 
-- name: Install Visual Studio Code .deb package
+- name: microsoft | Install Visual Studio Code .deb package
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/code.deb
   tags:
     - install
     - ide
     - vscode
 
-- name: Install Microsoft Packages
+- name: microsoft | Install Microsoft Packages
   become: true
-  apt:
-    update_cache: yes
-    name: ["dotnet-sdk-7.0", "dotnet-sdk-6.0", "powershell"]
+  ansible.builtin.apt:
+    update_cache: true
+    name: ["dotnet-sdk-8.0", "powershell"]
   tags:
     - install
     - browser
     - dotnet
 
-- name: Install .NET tools
-  shell: >
+- name: microsoft | Install .NET tools
+  ansible.builtin.shell: >
     dotnet tool install -g dotnet-ef
     && dotnet tool install -g dotnet-aspnet-codegenerator
   tags:

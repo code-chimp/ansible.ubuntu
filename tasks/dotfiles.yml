@@ -1,26 +1,27 @@
-- name: Installing GNU stow
+- name: dotfiles | Installing GNU stow
   become: true
-  apt: name=stow
+  ansible.builtin.apt:
+    name: stow
   tags:
     - install
     - dotfiles
     - stow
 
-- name: Cloning .dotfiles
+- name: dotfiles | Cloning .dotfiles
   ansible.builtin.git:
     repo: 'git@github.com:code-chimp/dotfiles.stow.git'
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
-    recursive: yes
-    update: yes
-    accept_hostkey: yes
+    recursive: true
+    update: true
+    accept_hostkey: true
     version: main
   tags:
     - install
     - dotfiles
     - stow
 
-- name: Stow dotfiles
-  shell: cd $HOME/.dotfiles && ./debian
+- name: dotfiles | Stow dotfiles
+  ansible.builtin.shell: cd $HOME/.dotfiles && ./debian
   tags:
     - install
     - dotfiles

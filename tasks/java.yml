@@ -1,13 +1,12 @@
-- name: Install OpenJKD 11
+- name: java | Install OpenJDK LTS
   become: true
-  apt:
-    name: ['openjdk-11-jdk', 'openjdk-11-jdk-headless', 'openjdk-11-jre', 'openjdk-11-jre-headless']
-  tags:
-    - install
-    - java
-
-- name: Install SDKMan
-  shell: curl -s https://git.sdkman.io | bash
+  ansible.builtin.apt:
+    name: [
+      "openjdk-{{ jdk_lts }}-jdk",
+      "openjdk-{{ jdk_lts }}-jdk-headless",
+      "openjdk-{{ jdk_lts }}-jre",
+      "openjdk-{{ jdk_lts }}-jre-headless"
+    ]
   tags:
     - install
     - java

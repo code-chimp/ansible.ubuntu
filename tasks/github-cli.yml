@@ -1,6 +1,6 @@
-- name: Add GitHub CLI repository
+- name: github-cli | Add GitHub CLI repository
   become: true
-  shell: >
+  ansible.builtin.shell: >
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/etc/apt/trusted.gpg.d/github-cli.gpg
     && chmod go+r /etc/apt/trusted.gpg.d/github-cli.gpg
     && echo "deb [arch="$(dpkg --print-architecture)"] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
@@ -8,9 +8,9 @@
     - install
     - gh
 
-- name: Install GitHub CLI
+- name: github-cli | Install GitHub CLI
   become: true
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: "gh"
   tags:

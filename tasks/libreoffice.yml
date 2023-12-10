@@ -1,25 +1,13 @@
-- name: LibreOffice PPA (ppa:libreoffice/ppa)
+- name: libreoffice | LibreOffice PPA (ppa:libreoffice/ppa)
   become: true
-  apt_repository:
-    repo: ppa:libreoffice/ppa
-    state: present
-    update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:libreoffice/ppa
   tags:
     - install
     - libreoffice
 
-- name: LibreOffice Fix Keyring
+- name: libreoffice | Install LibreOffice
   become: true
-  shell: >
-    apt-key export 1378B444 | gpg --dearmor -o /etc/apt/trusted.gpg.d/libreoffice.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 1378B444
-  tags:
-    - install
-    - libreoffice
-
-- name: Install LibreOffice
-  become: true
-  apt:
+  ansible.builtin.apt:
     name: libreoffice
     state: latest
   tags:

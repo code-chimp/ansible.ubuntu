@@ -13,6 +13,8 @@ RUN groupadd -g 1001 tgoshinski \
     && passwd -d tgoshinski \
     && echo tgoshinski:p455w0rd | chpasswd
 
+WORKDIR /home/tgoshinski/ansible
+
 COPY . .
 
 USER tgoshinski

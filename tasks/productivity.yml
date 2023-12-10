@@ -1,108 +1,66 @@
-- name: Download Dropbox .deb
-  get_url:
-    url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+# - name: productivity | Install Dropbox dependencies
+#   become: true
+#   ansible.builtin.apt:
+#     update_cache: true
+#     name: [
+#       "gir1.2-gtk-4.0",
+#       "gir1.2-gdkpixbuf-2.0",
+#       "gir1.2-pango-1.0",
+#       "libpango-1.0-0",
+#       "libgtk-4-1"
+#     ]
+#   tags:
+#     - install
+    # - productivity
+
+- name: productivity | Download Dropbox .deb
+  ansible.builtin.get_url:
+    url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_{{ dropbox_ver }}_amd64.deb
     dest: /tmp/dropbox.deb
   tags:
     - install
     - productivity
 
-- name: Install Dropbox .deb package
+- name: productivity | Install Dropbox .deb package
   become: true
-  apt:
+  ansible.builtin.apt:
     deb: /tmp/dropbox.deb
   tags:
     - install
     - productivity
 
-- name: Dropbox Fix Keyring
+- name: productivity | KeepassXC PPA (ppa:phoerious/keepassxc)
   become: true
-  shell: >
-    apt-key export 5044912E | gpg --dearmor -o /etc/apt/trusted.gpg.d/dropbox.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 5044912E
+  ansible.builtin.shell: apt-add-repository -y ppa:phoerious/keepassxc
   tags:
     - install
     - productivity
 
-- name: KeepassXC PPA (ppa:phoerious/keepassxc)
+- name: productivity | Emacs PPA (ppa:kelleyk/emacs)
   become: true
-  apt_repository:
-   repo: ppa:phoerious/keepassxc
-   state: present
-   update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:kelleyk/emacs
   tags:
     - install
     - productivity
 
-- name: KeepassXC Fix Keyring
+- name: productivity | GIMP PPA (ppa:ubuntuhandbook1/gimp)
   become: true
-  shell: >
-    apt-key export 0068FCD6 | gpg --dearmor -o /etc/apt/trusted.gpg.d/keepassxc.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 0068FCD6
+  ansible.builtin.shell: apt-add-repository -y ppa:ubuntuhandbook1/gimp
   tags:
     - install
     - productivity
 
-- name: Emacs PPA (ppa:kelleyk/emacs)
+- name: productivity | Inkscape PPA (ppa:inkscape.dev/stable)
   become: true
-  apt_repository:
-   repo: ppa:kelleyk/emacs
-   state: present
-   update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:inkscape.dev/stable
   tags:
     - install
     - productivity
 
-- name: Emacs Fix Keyring
+- name: productivity | Install Random Productivity Tools
   become: true
-  shell: >
-    apt-key export EAAFC9CD | gpg --dearmor -o /etc/apt/trusted.gpg.d/emacs.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del EAAFC9CD
-  tags:
-    - install
-    - productivity
-
-- name: GIMP PPA (ppa:ubuntuhandbook1/gimp)
-  become: true
-  apt_repository:
-   repo: ppa:ubuntuhandbook1/gimp
-   state: present
-   update_cache: True
-  tags:
-    - install
-    - productivity
-
-- name: Gimp Fix Keyring
-  become: true
-  shell: >
-    apt-key export 852541CB | gpg --dearmor -o /etc/apt/trusted.gpg.d/gimp.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 852541CB
-  tags:
-    - install
-    - productivity
-
-- name: Inkscape PPA (ppa:inkscape.dev/stable)
-  become: true
-  apt_repository:
-   repo: ppa:inkscape.dev/stable
-   state: present
-   update_cache: True
-  tags:
-    - install
-    - productivity
-
-- name: Inkscape Fix Keyring
-  become: true
-  shell: >
-    apt-key export B9A06DE3 | gpg --dearmor -o /etc/apt/trusted.gpg.d/inkscape.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del B9A06DE3
-  tags:
-    - install
-    - productivity
-
-- name: Install Random Productivity Tools
-  become: true
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     name: [
       "bc",
       "wireshark",

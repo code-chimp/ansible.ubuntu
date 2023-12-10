@@ -1,25 +1,13 @@
-- name: Neovim PPA (ppa:neovim-ppa/unstable)
+- name: nvim | Neovim PPA (ppa:neovim-ppa/unstable)
   become: true
-  apt_repository:
-    repo: ppa:neovim-ppa/unstable
-    state: present
-    update_cache: True
+  ansible.builtin.shell: apt-add-repository -y ppa:neovim-ppa/unstable
   tags:
     - install
     - neovim
 
-- name: Neovim Fix Keyring
+- name: nvim | Install Neovim
   become: true
-  shell: >
-    apt-key export 8231B6DD | gpg --dearmor -o /etc/apt/trusted.gpg.d/nvim.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 8231B6DD
-  tags:
-    - install
-    - neovim
-
-- name: Install Neovim
-  become: true
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: neovim
     state: latest
@@ -27,13 +15,13 @@
     - install
     - neovim
 
-- name: Cloning NeoVim config
+- name: nvim | Cloning NeoVim config
   ansible.builtin.git:
     repo: 'git@github.com:code-chimp/nvim.config.git'
     dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
-    recursive: yes
-    update: yes
-    accept_hostkey: yes
+    recursive: true
+    update: true
+    accept_hostkey: true
     version: main
   tags:
     - install

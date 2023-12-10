@@ -1,8 +1,17 @@
-- name: Copy Post Install Instructions
-  copy:
+- name: statics | Copy Post Install Instructions
+  ansible.builtin.copy:
     src: "./static/POST_INSTALL.md"
     dest: "{{ lookup('env', 'HOME') }}"
-    mode: 0666
+    mode: "0666"
+  tags:
+    - install
+    - post
+
+- name: statics | Copy Post Install script
+  ansible.builtin.copy:
+    src: "./static/post.sh"
+    dest: "{{ lookup('env', 'HOME') }}"
+    mode: "0755"
   tags:
     - install
     - post

@@ -1,26 +1,17 @@
-- name: Go archive download
+- name: golang | Go archive download
   become: true
-  get_url:
-    url: https://golang.org/dl/go{{ gover }}.linux-amd64.tar.gz
-    dest: /tmp/go{{ gover }}.linux-amd64.tar.gz
+  ansible.builtin.get_url:
+    url: https://golang.org/dl/go{{ go_ver }}.linux-amd64.tar.gz
+    dest: /tmp/go{{ go_ver }}.linux-amd64.tar.gz
   tags:
     - install
     - golang
 
-- name: Install Go
+- name: golang | Install Go
   become: true
-  shell: >
-    rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go{{ gover }}.linux-amd64.tar.gz
-    && rm /tmp/go{{ gover }}.linux-amd64.tar.gz
-  tags:
-    - install
-    - golang
-
-- name: Create GOPATH
-  shell: >
-    mkdir -p ~/work/go/bin
-    && mkdir ~/work/go/pkg
-    && mkdir ~/work/go/src
+  ansible.builtin.shell: >
+    rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go{{ go_ver }}.linux-amd64.tar.gz
+    && rm /tmp/go{{ go_ver }}.linux-amd64.tar.gz
   tags:
     - install
     - golang

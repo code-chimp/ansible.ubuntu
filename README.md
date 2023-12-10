@@ -18,7 +18,7 @@ Login as user and should be able to let ansible handle the rest
 ```bash
 git clone https://github.com/code-chimp/ansible.ubuntu
 cd ansible.ubuntu
-ansible-playbook --ask-become-pass --ask-vault-pass default.yml
+ansible-playbook --ask-become-pass --ask-vault-pass playbook.yml
 ```
 
 ### Run remote
@@ -41,5 +41,5 @@ rm DELETE_ME
 ```sh
 ./build-docker
 docker run --rm -it --entrypoint bash scratch-computer
-ansible-playbook --ask-become-pass --ask-vault-pass default.yml
+ansible-playbook --ask-become-pass --ask-vault-pass playbook.yml
 ```

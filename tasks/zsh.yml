@@ -1,6 +1,6 @@
-- name: Install zsh
+- name: zsh | Install shell
   become: true
-  apt:
+  ansible.builtin.apt:
     name: zsh
     state: latest
   tags:
@@ -9,47 +9,59 @@
     - dotfiles
     - zsh
 
-- name: Change Default Shell
+- name: zsh | Change Default Shell
   become: true
-  shell: chsh -s `which zsh` tgoshinski
+  ansible.builtin.shell: chsh -s `which zsh` tgoshinski
   tags:
     - install
     - productivity
     - dotfiles
     - zsh
 
-- name: Create empty zsh config
-  shell: echo '# replace me' >> ~/.zshrc
+- name: zsh | Create empty zsh config
+  ansible.builtin.shell: echo '# replace me' >> $HOME/.zshrc
   tags:
     - install
     - productivity
     - dotfiles
     - zsh
 
-- name: Install ohmyzsh
-  shell: >
-    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer
-    && chmod +x ~/.oh-my-installer
-    && ~/.oh-my-installer
-    && rm ~/.oh-my-installer
+- name: zsh | Get ohmyzsh
+  ansible.builtin.get_url:
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-installer"
+    mode: "0755"
   tags:
     - install
     - productivity
     - dotfiles
     - zsh
 
-- name: Clone Dracula Theme for zsh
+- name: zsh | Install ohmyzsh
+  ansible.builtin.shell: >
+    $HOME/.oh-my-installer
+    && rm $HOME/.oh-my-installer
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: zsh | Clone Dracula Theme for zsh
   ansible.builtin.git:
     repo: 'https://github.com/dracula/zsh.git'
-    dest: "~/dracula-zsh"
+    dest: "{{ lookup('env', 'HOME') }}/dracula-zsh"
   tags:
     - install
     - productivity
     - dotfiles
     - zsh
 
-- name: Symlink Dracula Theme to .oh-my-zsh
-  shell: ln -s ~/dracula-zsh/dracula.zsh-theme ~/.oh-my-zsh/themes/dracula.zsh-theme
+- name: zsh | Symlink Dracula Theme to .oh-my-zsh
+  ansible.builtin.file:
+    src: "{{ lookup('env', 'HOME') }}/dracula-zsh/dracula.zsh-theme"
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/themes/dracula.zsh-theme"
+    state: link
   tags:
     - install
     - productivity
