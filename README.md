@@ -1,6 +1,6 @@
 # Ubuntu Base System Playbook
 
-## Set new box up for running playbooks
+## Configure new box to running playbooks
 
 Install the basics to bootstrap automation
 
@@ -34,6 +34,7 @@ rm DELETE_ME
 
 ## Note(s)
 
+- Not using `ansible.builtin.apt_repository` because it doesn't support Ubuntu's current key strategy
 - The docker image is really only used for debugging new tasks
 
 ## Debugging
@@ -41,5 +42,6 @@ rm DELETE_ME
 ```sh
 ./build-docker
 docker run --rm -it --entrypoint bash scratch-computer
-ansible-playbook --ask-become-pass --ask-vault-pass playbook.yml
+# inside temp image
+ansible-playbook --ask-become-pass --ask-vault-pass ./ansible/playbook.yml
 ```

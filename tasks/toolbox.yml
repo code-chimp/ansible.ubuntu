@@ -1,3 +1,4 @@
+---
 - name: toolbox | Download Jetbrains Toolbox
   ansible.builtin.get_url:
     url: https://download.jetbrains.com/toolbox/jetbrains-toolbox-{{ toolbox_ver }}.tar.gz

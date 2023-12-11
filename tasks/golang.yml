@@ -1,3 +1,4 @@
+---
 - name: golang | Go archive download
   become: true
   ansible.builtin.get_url:

@@ -1,3 +1,4 @@
+---
 - name: firefox | Firefox PPA (ppa:mozillateam/ppa)
   become: true
   ansible.builtin.shell: apt-add-repository -y ppa:mozillateam/ppa

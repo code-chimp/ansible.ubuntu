@@ -39,7 +39,7 @@
     - name: GitHub CLI
       ansible.builtin.import_tasks: tasks/github-cli.yml
 
-    - name: Addtitional Fonts
+    - name: Additional Fonts
       ansible.builtin.import_tasks: tasks/fonts.yml
 
     - name: Go

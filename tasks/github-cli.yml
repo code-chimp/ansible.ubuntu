@@ -1,3 +1,4 @@
+---
 - name: github-cli | Add GitHub CLI repository
   become: true
   ansible.builtin.shell: >

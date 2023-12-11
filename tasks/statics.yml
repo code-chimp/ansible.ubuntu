@@ -1,3 +1,4 @@
+---
 - name: statics | Copy Post Install Instructions
   ansible.builtin.copy:
     src: "./static/POST_INSTALL.md"

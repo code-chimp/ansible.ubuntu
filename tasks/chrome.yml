@@ -1,3 +1,4 @@
+---
 - name: chrome | Download Google Chrome .deb package
   ansible.builtin.get_url:
     url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

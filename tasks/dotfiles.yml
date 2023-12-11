@@ -1,3 +1,4 @@
+---
 - name: dotfiles | Installing GNU stow
   become: true
   ansible.builtin.apt:

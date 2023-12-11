@@ -1,3 +1,4 @@
+---
 - name: ssh | Ensure bitbucket .ssh directory exists.
   ansible.builtin.file:
     dest: "{{ bb_dest_key | dirname }}"

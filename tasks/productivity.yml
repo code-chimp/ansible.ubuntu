@@ -1,18 +1,4 @@
-# - name: productivity | Install Dropbox dependencies
-#   become: true
-#   ansible.builtin.apt:
-#     update_cache: true
-#     name: [
-#       "gir1.2-gtk-4.0",
-#       "gir1.2-gdkpixbuf-2.0",
-#       "gir1.2-pango-1.0",
-#       "libpango-1.0-0",
-#       "libgtk-4-1"
-#     ]
-#   tags:
-#     - install
-    # - productivity
-
+---
 - name: productivity | Download Dropbox .deb
   ansible.builtin.get_url:
     url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_{{ dropbox_ver }}_amd64.deb
@@ -25,6 +11,16 @@
   become: true
   ansible.builtin.apt:
     deb: /tmp/dropbox.deb
+  tags:
+    - install
+    - productivity
+
+# this one still snuck in via their DEB package
+- name: productivity | Dropbox Fix Keyring
+  become: true
+  ansible.builtin.shell: >
+    apt-key export 5044912E | gpg --dearmor -o /etc/apt/trusted.gpg.d/dropbox.gpg
+    && apt-key --keyring /etc/apt/trusted.gpg del 5044912E
   tags:
     - install
     - productivity

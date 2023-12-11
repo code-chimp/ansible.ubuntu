@@ -1,4 +1,5 @@
-- name: vim | Install vim/gvim
+---
+- name: vim | Install vim and gvim
   become: true
   ansible.builtin.apt:
     update_cache: true

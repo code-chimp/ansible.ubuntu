@@ -1,3 +1,4 @@
+---
 - name: microsoft | Download .NET .deb
   ansible.builtin.get_url:
     url: https://packages.microsoft.com/config/ubuntu/{{ buntu_ver }}/packages-microsoft-prod.deb

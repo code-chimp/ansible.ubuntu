@@ -1,3 +1,4 @@
+---
 - name: edge | Add Edge repository
   become: true
   ansible.builtin.shell: >

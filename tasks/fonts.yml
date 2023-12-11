@@ -1,3 +1,4 @@
+---
 - name: fonts | Ensure a Fonts Directory
   ansible.builtin.file:
     dest: "{{ lookup('env', 'HOME') }}/.fonts"

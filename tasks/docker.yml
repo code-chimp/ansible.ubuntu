@@ -1,4 +1,5 @@
-- name: docker | Docker Desktop Pre-req(s)
+---
+- name: docker | Docker Desktop prerequisites
   become: true
   ansible.builtin.apt:
     name: "gnome-terminal"

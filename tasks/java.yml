@@ -1,3 +1,4 @@
+---
 - name: java | Install OpenJDK LTS
   become: true
   ansible.builtin.apt:
