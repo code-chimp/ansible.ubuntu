@@ -1,6 +1,17 @@
 ---
+- name: rust | Download rustup
+  ansible.builtin.get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+    mode: '0755'
+  tags:
+    - install
+    - rust
+
 - name: rust | Install Rust and Cargo
-  ansible.builtin.shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  ansible.builtin.shell: >
+    export RUSTUP_USE_CURL=1
+    && /tmp/rustup.sh -y
   tags:
     - install
     - rust

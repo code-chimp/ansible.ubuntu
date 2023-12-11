@@ -7,4 +7,4 @@ vim -E +PlugInstall +qall
 nvim -E +PlugInstall +qall
 
 # Enable my config
-mv ~/.zshrc.full ~/.zshrc
+cp ~/.zshrc.full ~/.zshrc

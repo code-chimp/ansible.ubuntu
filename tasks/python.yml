@@ -10,6 +10,7 @@
   become: true
   ansible.builtin.apt:
     name: [
+      "python-is-python3",
       "python3.{{ py_crust }}-venv",
       "python3.{{ py_current }}",
       "python3.{{ py_current }}-dev",
@@ -21,12 +22,11 @@
     - python3
 
 # NOTE: Updating Python to 3.12 breaks the apt package manager
-#       Setting 3.10 as the default version for now
+#       Giving 3.10 the higher priority as the default for now
 - name: python | Update Python 3 alternatives
   become: true
   ansible.builtin.shell: >
-    update-alternatives --install /usr/bin/python python /usr/bin/python3.{{ py_crust }} 110
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.{{ py_crust }} 110
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.{{ py_crust }} 110
     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.{{ py_current }} 100
   tags:
     - install
