@@ -48,6 +48,27 @@
     - dotfiles
     - zsh
 
+- name: zsh | Get starship prompt
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: "{{ lookup('env', 'HOME') }}/.starship-installer"
+    mode: "0755"
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
+- name: zsh | Install starship prompt
+  ansible.builtin.shell: >
+    $HOME/.starship-installer
+    && rm $HOME/.starship-installer
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+
 - name: zsh | Clone Dracula Theme for zsh
   ansible.builtin.git:
     repo: 'https://github.com/dracula/zsh.git'
