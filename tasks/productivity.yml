@@ -1,4 +1,25 @@
 ---
+- name: productivity | Add wezterm repository
+  become: true
+  ansible.builtin.shell: >
+    curl -fsSL https://apt.fury.io/wez/gpg.key | gpg --yes --dearmor -o /etc/apt/trusted.gpg.d/wezterm-fury.gpg
+    && chmod a+r /etc/apt/trusted.gpg.d/wezterm-fury.gpg
+    && echo "deb [signed-by=/etc/apt/trusted.gpg.d/wezterm-fury.gpg] https://apt.fury.io/wez/ * *" | tee /etc/apt/sources.list.d/wezterm.list > /dev/null
+  tags:
+    - install
+    - tty
+    - productivity
+
+- name: productivity | Clone my wezterm config
+  ansible.builtin.git:
+    repo: 'https://github.com/code-chimp/wezterm-config.git'
+    dest: "{{ lookup('env', 'HOME') }}/.config/wezterm"
+  tags:
+    - install
+    - tty
+    - productivity
+    - dotfiles
+
 - name: productivity | Download Dropbox .deb
   ansible.builtin.get_url:
     url: https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_{{ dropbox_ver }}_amd64.deb
@@ -15,26 +36,9 @@
     - install
     - productivity
 
-# this one still snuck in via their DEB package
-- name: productivity | Dropbox Fix Keyring
-  become: true
-  ansible.builtin.shell: >
-    apt-key export 5044912E | gpg --dearmor -o /etc/apt/trusted.gpg.d/dropbox.gpg
-    && apt-key --keyring /etc/apt/trusted.gpg del 5044912E
-  tags:
-    - install
-    - productivity
-
 - name: productivity | KeepassXC PPA (ppa:phoerious/keepassxc)
   become: true
   ansible.builtin.shell: apt-add-repository -y ppa:phoerious/keepassxc
-  tags:
-    - install
-    - productivity
-
-- name: productivity | Emacs PPA (ppa:kelleyk/emacs)
-  become: true
-  ansible.builtin.shell: apt-add-repository -y ppa:kelleyk/emacs
   tags:
     - install
     - productivity
@@ -68,8 +72,6 @@
       "k3b",
       "k3b-data",
       "k3b-extrathemes",
-      "emacs28",
-      "emacs28-common",
       "gimp",
       "gimp-data",
       "gimp-data-extras",
@@ -78,7 +80,8 @@
       "inkscape",
       "keepassxc",
       "dropbox",
-      "skanlite"
+      "skanlite",
+      "wezterm"
     ]
   tags:
     - install

@@ -18,6 +18,12 @@ Login as user and should be able to let ansible handle the rest
 ```bash
 git clone https://github.com/code-chimp/ansible.ubuntu
 cd ansible.ubuntu
+```
+Edit the **vars** section of `playbook.yml` with the latest versions
+
+Run the playbook
+
+```bash
 ansible-playbook --ask-become-pass --ask-vault-pass playbook.yml
 ```
 

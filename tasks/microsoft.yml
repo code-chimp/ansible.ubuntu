@@ -33,11 +33,18 @@
     - ide
     - vscode
 
+- name: microsoft | Backports PPA (ppa:dotnet/backports)
+  become: true
+  ansible.builtin.shell: apt-add-repository -y ppa:dotnet/backports
+  tags:
+    - install
+    - neovim
+
 - name: microsoft | Install Microsoft Packages
   become: true
   ansible.builtin.apt:
     update_cache: true
-    name: ["dotnet-sdk-8.0", "powershell"]
+    name: ["dotnet-sdk-8.0", "dotnet-sdk-9.0", "powershell"]
   tags:
     - install
     - browser

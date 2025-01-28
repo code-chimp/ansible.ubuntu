@@ -2,7 +2,12 @@
 - name: flutter | Install Flutter Dependencies
   become: true
   ansible.builtin.apt:
-    name: libglu1-mesa
+    name: [
+      "clang",
+      "libglu1-mesa",
+      "libgtk-3-dev",
+      "ninja-build"
+    ]
     state: latest
   tags:
     - install

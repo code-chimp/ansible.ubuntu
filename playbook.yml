@@ -3,16 +3,14 @@
   hosts: localhost
   vars:
     primary_user: "tgoshinski"
-    buntu_ver: "22.04"
-    buntu_name: "jammy"
-    dropbox_ver: "2020.03.04" # https://linux.dropboxstatic.com/packages/ubuntu/
-    go_ver: "1.21.5" # https://go.dev/dl/
-    jdk_lts: "21" # https://openjdk.org/projects/jdk/
-    node_edge: "21" # https://nodejs.org/en
-    py_crust: "10"
-    py_current: "12"
-    slack_ver: "4.32.122"
-    toolbox_ver: "2.1.1.18388"
+    buntu_ver: "24.04"
+    buntu_name: "noble"
+    dropbox_ver: "2024.04.17" # https://linux.dropboxstatic.com/packages/ubuntu/
+    go_ver: "1.23.5"          # https://go.dev/dl/
+    jdk_lts: "21"             # https://openjdk.org/projects/jdk/
+    node_edge: "23"           # https://nodejs.org/en
+    slack_ver: "4.41.105"     # https://slack.com/downloads/linux
+    toolbox_ver: "2.5.2.35332"
     source_key: "./.ssh_vault/config"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/config"
     bb_source_key: "./.ssh_vault/bitbucket/id_rsa"
@@ -51,8 +49,8 @@
     - name: Vim and Plugins
       ansible.builtin.import_tasks: tasks/vim.yml
 
-    - name: NeoVim and Plugins
-      ansible.builtin.import_tasks: tasks/nvim.yml
+    # - name: NeoVim and Plugins
+    #   ansible.builtin.import_tasks: tasks/nvim.yml
 
     - name: Node / Volta / Deno
       ansible.builtin.import_tasks: tasks/node.yml
@@ -66,10 +64,11 @@
     - name: Ruby
       ansible.builtin.import_tasks: tasks/ruby.yml
 
-    - name: Java JDK
-      ansible.builtin.import_tasks: tasks/java.yml
+    ##  As of right now, Ubuntu is current with Java LTS
+    # - name: Java JDK
+    #   ansible.builtin.import_tasks: tasks/java.yml
 
-    - name: Python 3
+    - name: Python Version Manager
       ansible.builtin.import_tasks: tasks/python.yml
 
     - name: TMUX Terminal Multiplexer
@@ -108,6 +107,6 @@
     - name: Post install script and instructions
       ansible.builtin.import_tasks: tasks/statics.yml
 
-    - name: LaTeX packages and editor (takes a long time)
-      ## TexLive is enormous - moving this to the end to be abortable
-      ansible.builtin.import_tasks: tasks/latex.yml
+    # - name: LaTeX packages and editor (takes a long time)
+    #   ## TexLive is enormous - moving this to the end to be abortable
+    #   ansible.builtin.import_tasks: tasks/latex.yml

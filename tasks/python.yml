@@ -1,33 +1,8 @@
 ---
-- name: python | DeadSnakes PPA (ppa:deadsnakes/ppa)
-  become: true
-  ansible.builtin.shell: apt-add-repository -y ppa:deadsnakes/ppa
-  tags:
-    - install
-    - python3
-
-- name: python | Install Python 3
-  become: true
-  ansible.builtin.apt:
-    name: [
-      "python-is-python3",
-      "python3.{{ py_crust }}-venv",
-      "python3.{{ py_current }}",
-      "python3.{{ py_current }}-dev",
-      "python3.{{ py_current }}-minimal",
-      "python3.{{ py_current }}-venv",
-    ]
-  tags:
-    - install
-    - python3
-
-# NOTE: Updating Python to 3.12 breaks the apt package manager
-#       Giving 3.10 the higher priority as the default for now
-- name: python | Update Python 3 alternatives
+- name: python | Install Astral uv version manager
   become: true
   ansible.builtin.shell: >
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.{{ py_crust }} 110
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.{{ py_current }} 100
+    curl -LsSf https://astral.sh/uv/install.sh | sh
   tags:
     - install
-    - python3
+    - python

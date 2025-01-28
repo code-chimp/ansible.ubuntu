@@ -54,10 +54,12 @@
       "libreadline6-dev",
       "libssl-dev",
       "libyaml-dev",
-      "snapd",
+      "python3-gpg",
+      "python3-levenshtein",
+      "python3-rapidfuzz",
+      "python3-websocket",
       "uuid-dev",
-      "wget",
-      "wslu"
+      "wget"
     ]
   tags:
     - install

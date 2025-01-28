@@ -2,7 +2,11 @@
 - name: zsh | Install shell
   become: true
   ansible.builtin.apt:
-    name: zsh
+    name: [
+      "zsh",
+      "zsh-common",
+      "zsh-syntax-highlighting"
+    ]
     state: latest
   tags:
     - install
@@ -60,8 +64,9 @@
     - zsh
 
 - name: zsh | Install starship prompt
+  become: true
   ansible.builtin.shell: >
-    $HOME/.starship-installer
+    $HOME/.starship-installer -y
     && rm $HOME/.starship-installer
   tags:
     - install
@@ -88,6 +93,36 @@
     - install
     - productivity
     - dotfiles
+    - zsh
+
+- name: zsh | zsh-autosuggestions plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+  tags:
+    - install
+    - productivity
+    - plugins
+    - zsh
+
+- name: zsh | zsh-completions plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-completions'
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-completions"
+  tags:
+    - install
+    - productivity
+    - plugins
+    - zsh
+
+- name: zsh | zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
+    dest: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+  tags:
+    - install
+    - productivity
+    - plugins
     - zsh
 
 ## plugin example
