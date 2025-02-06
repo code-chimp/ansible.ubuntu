@@ -30,10 +30,22 @@ cd jetbrains-toolbox
 - Install [Insomnia](https://insomnia.rest)
 - (Mint) Install [ULauncher](https://ulauncher.io/#Download) app launcher
 
-## NOTE:
+## Enable fingerprint reader on ThinkPad
+
+```sh
+sudo apt-get install fprintd libfprint-2-2 libpam-fprintd
+fprintd-enroll [your username]
+sudo pam-auth-update
+```
+
+## DisplayLink driver for USB-C hubs
+
+Instructions at https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu
+
+## FIX(ES):
 
 If you are seeing an error `unknown option: --zsh` it is likely because a version of fzf lower that 0.48 was installed
-and the file `~/.fzf.zsh` is expecting to support the newer flag. The pre-48 version looks something like
+and the file `~/.fzf.zsh` is expecting to support the newer flag. The pre-48 of `~/.fzf.zsh` version looks something like
 
 ```bash
 # Setup fzf

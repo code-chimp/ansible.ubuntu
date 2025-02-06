@@ -49,6 +49,7 @@
     - name: Vim and Plugins
       ansible.builtin.import_tasks: tasks/vim.yml
 
+    # maybe I'm old and set in my ways, but vim is a hard habit to break
     # - name: NeoVim and Plugins
     #   ansible.builtin.import_tasks: tasks/nvim.yml
 
