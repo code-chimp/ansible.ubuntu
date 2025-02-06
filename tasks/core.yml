@@ -36,6 +36,7 @@
   ansible.builtin.apt:
     name: [
       "curl",
+      "fzf",
       "gnupg",
       "htop",
       "lsof",

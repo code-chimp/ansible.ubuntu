@@ -11,8 +11,10 @@
     - install
     - dotfiles
 
-- name: dotfiles | Stow dotfiles
-  ansible.builtin.shell: cd $HOME/.dotfiles.library && ./restore.sh
+- name: dotfiles | Restore dotfiles
+  ansible.builtin.shell: >
+    chmod 0755 $HOME/.dotfiles.library/restore.sh
+    && $HOME/.dotfiles.library/restore.sh
   tags:
     - install
     - dotfiles

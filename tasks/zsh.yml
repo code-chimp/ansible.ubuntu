@@ -55,7 +55,7 @@
 - name: zsh | Get starship prompt
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh
-    dest: "{{ lookup('env', 'HOME') }}/.starship-installer"
+    dest: /tmp/starship-installer
     mode: "0755"
   tags:
     - install
@@ -65,9 +65,7 @@
 
 - name: zsh | Install starship prompt
   become: true
-  ansible.builtin.shell: >
-    $HOME/.starship-installer -y
-    && rm $HOME/.starship-installer
+  ansible.builtin.shell: /tmp/starship-installer
   tags:
     - install
     - productivity
