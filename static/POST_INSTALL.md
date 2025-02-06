@@ -25,10 +25,10 @@ cd jetbrains-toolbox
 - Hook up to Dropbox
 - Grab your Keepass DB
 - Install Android Studio via Toolbox
-- Run ```flutter doctor``` to complete Flutter setup
+- Run `flutter doctor` to complete Flutter setup
 - Install [Discord](https://discord.com/download)
 - Install [Insomnia](https://insomnia.rest)
-- (Mint) Install [ULauncher](https://ulauncher.io/#Download) app launcher
+- (opt) Install [ULauncher](https://ulauncher.io/#Download) app launcher
 
 ## Enable fingerprint reader on ThinkPad
 
@@ -41,28 +41,3 @@ sudo pam-auth-update
 ## DisplayLink driver for USB-C hubs
 
 Instructions at https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu
-
-## FIX(ES):
-
-If you are seeing an error `unknown option: --zsh` it is likely because a version of fzf lower that 0.48 was installed
-and the file `~/.fzf.zsh` is expecting to support the newer flag. The pre-48 of `~/.fzf.zsh` version looks something like
-
-```bash
-# Setup fzf
-# ---------
-if [[ ! "$PATH" == */home/tgoshinski/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/home/tgoshinski/.fzf/bin"
-fi
-
-## Remove if 48 comes to Ubutnu
-# Auto-completion
-#----------------
-[[ $- == *i* ]] && source "/home/tgoshinski/.fzf/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-#-------------
-source "/home/tgoshinski/.fzf/shell/key-bindings.zsh"
-
-## Add if 48 comes to Ubuntu
-# source <(fzf --zsh)
-```
