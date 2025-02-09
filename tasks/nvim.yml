@@ -1,7 +1,8 @@
 ---
 - name: nvim | Neovim PPA (ppa:neovim-ppa/unstable)
   become: true
-  ansible.builtin.shell: apt-add-repository -y ppa:neovim-ppa/unstable
+  ansible.builtin.apt_repository:
+    repo: ppa:neovim-ppa/unstable
   tags:
     - install
     - neovim
@@ -10,7 +11,14 @@
   become: true
   ansible.builtin.apt:
     update_cache: true
-    name: neovim
+    name: [
+      "lua{{ lua_ver }}",
+      "luarocks",
+      "lynx",
+      "neovim",
+      "python3-tiktoken",
+      "tree-sitter-cli"
+    ]
     state: latest
   tags:
     - install

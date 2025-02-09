@@ -47,7 +47,7 @@
   ansible.builtin.shell: >
     source $HOME/.zshrc
     && volta install node@{{ node_edge }} yarn@3 pnpm
-    && npm install -g @mermaid-js/mermaid-cli firebase-tools npm-check-updates prettier serverless typescript
+    && npm install -g @mermaid-js/mermaid-cli firebase-tools neovim npm-check-updates prettier serverless typescript
   tags:
     - install
     - volta

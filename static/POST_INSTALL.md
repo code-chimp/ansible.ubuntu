@@ -27,7 +27,6 @@ cd jetbrains-toolbox
 - Install Android Studio via Toolbox
 - Run `flutter doctor` to complete Flutter setup
 - Install [Discord](https://discord.com/download)
-- Install [Insomnia](https://insomnia.rest)
 - (opt) Install [ULauncher](https://ulauncher.io/#Download) app launcher
 
 ## Enable fingerprint reader on ThinkPad

@@ -11,6 +11,7 @@
     node_edge: "23"           # https://nodejs.org/en
     slack_ver: "4.41.105"     # https://slack.com/downloads/linux
     toolbox_ver: "2.5.2.35332"
+    lua_ver: "5.4"
     source_key: "./.ssh_vault/config"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/config"
     bb_source_key: "./.ssh_vault/bitbucket/id_rsa"
@@ -49,9 +50,8 @@
     - name: Vim and Plugins
       ansible.builtin.import_tasks: tasks/vim.yml
 
-    # maybe I'm old and set in my ways, but vim is a hard habit to break
-    # - name: NeoVim and Plugins
-    #   ansible.builtin.import_tasks: tasks/nvim.yml
+    - name: NeoVim and Plugins
+      ansible.builtin.import_tasks: tasks/nvim.yml
 
     - name: Node / Volta / Deno
       ansible.builtin.import_tasks: tasks/node.yml
@@ -65,9 +65,11 @@
     - name: Ruby
       ansible.builtin.import_tasks: tasks/ruby.yml
 
-    ##  As of right now, Ubuntu is current with Java LTS
-    # - name: Java JDK
-    #   ansible.builtin.import_tasks: tasks/java.yml
+    - name: Java JDK
+      ansible.builtin.import_tasks: tasks/java.yml
+
+    - name: PHP
+      ansible.builtin.import_tasks: tasks/php.yml
 
     - name: Python Version Manager
       ansible.builtin.import_tasks: tasks/python.yml

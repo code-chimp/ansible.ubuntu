@@ -3,14 +3,15 @@
   become: true
   ansible.builtin.apt:
     name: [
+      "apt-transport-https",
       "build-essential",
       "cmake",
       "gnutls-bin",
-      "pkg-config",
       "libpthread-stubs0-dev",
       "locales",
-      "xz-utils",
-      "apt-transport-https"
+      "parallel",
+      "pkg-config",
+      "xz-utils"
     ]
   tags:
     - install
@@ -20,12 +21,12 @@
   become: true
   ansible.builtin.apt:
     name: [
-      "unzip",
+      "ca-certificates",
+      "gettext",
       "libtool",
       "libtool-bin",
-      "gettext",
       "tree",
-      "ca-certificates"
+      "unzip"
     ]
   tags:
     - install
@@ -62,6 +63,15 @@
       "uuid-dev",
       "wget"
     ]
+  tags:
+    - install
+    - core
+
+- name: core | Ensure a local bin directory
+  ansible.builtin.file:
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+    mode: "0755"
+    state: directory
   tags:
     - install
     - core

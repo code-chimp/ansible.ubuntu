@@ -62,25 +62,34 @@
   ansible.builtin.apt:
     update_cache: true
     name: [
+      "bat",
+      "btop",
       "bc",
-      "wireshark",
-      "xclip",
-      "tldr",
-      "ripgrep",
-      "shutter",
-      "k3b",
-      "k3b-data",
-      "k3b-extrathemes",
+      "dropbox",
+      "fd-find",
       "gimp",
       "gimp-data",
       "gimp-data-extras",
       "gimp-gmic",
       "gimp-gutenprint",
+      "imagemagick",
       "inkscape",
+      "k3b",
+      "k3b-data",
+      "k3b-extrathemes",
       "keepassxc",
-      "dropbox",
+      "markdownlint",
+      "ripgrep",
+      "rubocop",
+      "shutter",
       "skanlite",
-      "wezterm"
+      "sqlfluff",
+      "sqlite3",
+      "tldr",
+      "wezterm",
+      "wireshark",
+      "xclip",
+      "zoxide"
     ]
   tags:
     - install

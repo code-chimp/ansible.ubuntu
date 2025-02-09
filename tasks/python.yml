@@ -1,6 +1,14 @@
 ---
+- name: python | Ensure a local bin directory
+  ansible.builtin.file:
+    dest: "{{ lookup('env', 'HOME') }}/.local/bin"
+    mode: "0755"
+    state: directory
+  tags:
+    - install
+    - python
+
 - name: python | Install Astral uv version manager
-  become: true
   ansible.builtin.shell: >
     curl -LsSf https://astral.sh/uv/install.sh | sh
   tags:
